@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Layout, Button } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import logo from '../assets/logo.jpg'
+
 const { Header } = Layout;
 
-const AppHeader = ({ isLoggedIn, onLogin, onLogout }) => {
+const AppHeader = ({isLoggedIn, onLogin, onLogout}) => {
+ 
   return (
     <Header style={{ background: '#fff', padding: '0 16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div style={{ display: 'flex', alignItems: 'center' }}>

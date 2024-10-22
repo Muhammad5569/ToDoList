@@ -1,28 +1,44 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { Button, Checkbox, Form, Input } from 'antd';
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, createSearchParams} from 'react-router-dom';
 import {login} from './api/auth.js'; 
 
+
+
 const Login = () => {
-    const navigateTo = useNavigate();
-
+    const navigate = useNavigate();
+    
+    const goToTasks = () =>
+        navigate({
+        pathname: '/tasks',
+        //search: `?${createSearchParams({category_id: 1})}`,
+    });
     const onFinish = async (values) => {
-        console.log('Success:', values);
-        const res = await login(values)
+        await login(values)
           .then((res) => {
-              console.log(res);
-              navigateTo('/tasks')
-              
+                
+                //console.log(res.data.user.name, 'res in await');
+                const user = res.data.user;
+                const token = res.data.token;
+                localStorage.setItem('user',JSON.stringify(user));
+                localStorage.setItem('token',JSON.stringify(token));
+                goToTasks();
+                // navigateTo(`/task/${userName}`)
           })
+          .catch((err)=>{
+            console.log(err)
+          })
+        
       };
-
+    
+  
     return(
     <div style={{
         display:'flex',
         height:'100vh',
         justifyContent:'center',
         alignItems:'center'
-    }}>
+                }}>
         <Form
             name="basic"
             labelCol={{
@@ -91,3 +107,4 @@ const Login = () => {
     </div>
 )};
 export default Login;
+

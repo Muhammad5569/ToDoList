@@ -6,7 +6,9 @@ export const login = async (data)=>{
 export const logout = async ()=>{
     return await axios.post('http://localhost:3000/api/auth/logout')
 }
-
+// export const user = async (data)=>{
+//     return axios.get('http://localhost:3000/api/users/:username')
+// }
  
 
     

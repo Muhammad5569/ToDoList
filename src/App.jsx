@@ -2,95 +2,70 @@ import React, { useState } from 'react';
 import Sidebar from './components/sidebar';
 import { Layout, Typography } from 'antd';
 import AppHeader from './components/AppHeader';
-// import { Button, Layout, Menu, theme } from 'antd';
-
+import Test from './components/Test.jsx'
 import Tables from './components/Tables';
-import UserInput from './components/UserInput';
+import { useNavigate } from 'react-router-dom';
 
-const { Header, Content, Footer, Sider } = Layout;
-const { Title } = Typography;
+
+const { Content, Footer, Sider } = Layout;
 
 const App = () => {
   const [collapsed, setCollapsed] = useState(false);
+  const [isLoggedIn, setisLoggedIn] = useState(false);
+  const navigate = useNavigate()
 
+  const onLogin = ()=>{
+    try {
+     // await login()
+     setisLoggedIn(true)
+     navigate({
+      pathname:'/login'
+     })
+    } catch (error) {
+      
+    }
+  }
+  const onLogout = ()=>{
+    try {
+      setisLoggedIn(false)
+      console.log(isLoggedIn)
+      navigate({
+        pathname:'/login',
+        
+      })
+    } catch (error) {
+      
+    }
+  }
   return (
-    <Layout style={{ minHeight: '100vh' }}>
-      {/* Sidebar */}
-      <Sider collapsible collapsed={collapsed} onCollapse={setCollapsed}>
-        <div className="logo" />
-        <Sidebar />
-      </Sider>
-      {/* Main content */}
-      <Layout className="site-layout">
-        {/* Header */}
-        <AppHeader/>
-        {/* Content */}
-        <Content style={{ margin: '24px 16px 0' }}>
-          <Tables />
-          <UserInput />
-        </Content>
-        {/* Footer */}
-        <Footer style={{ textAlign: 'center' }}>
-          Ant Design © {new Date().getFullYear()} Created by Ant UED
-        </Footer>
+    
+      <Layout style={{ minHeight: '100vh' }}>
+        {/* Sidebar */}
+        <Sider collapsible collapsed={collapsed} onCollapse={setCollapsed}>
+          <div className="logo" />
+          <Sidebar />
+        </Sider>
+        {/* Main content */}
+        <Layout className="site-layout">
+          {/* Header */}
+          <AppHeader
+            isLoggedIn={isLoggedIn}
+            onLogin={onLogin}
+            onLogout={onLogout}
+          />
+          {/* Content */}
+          <Content style={{ margin: '24px 16px 0' }}>
+            <Tables />
+          <Test/>
+          </Content>
+          {/* Footer */}
+          <Footer style={{ textAlign: 'center' }}>
+            Ant Design © {new Date().getFullYear()} Created by Ant UED
+          </Footer>
+        </Layout>
       </Layout>
-    </Layout>
+   
   );
 };
 
 export default App;
-
-
-
-// import React,{useState} from 'react';
-// import Sidebar from './components/sidebar';
-
-
-// import { Button, Layout, Menu, theme } from 'antd';
-// import Tables from './components/Tables.jsx';
-// import UserInput from './components/UserInput';
-
-// const { Header, Content, Footer } = Layout;
-// const App = () => {
-//   const [collapsed, setCollapsed] = useState(false);
-
-//   const {
-//     token: { colorBgContainer, borderRadiusLG },
-//   } = theme.useToken();
-//   return (
-//     <>
-//     <Layout>
-//     <Header
-//           style={{
-//             padding: 0,
-//             display: 'block',
-//             background: colorBgContainer,
-//           }}
-//         >
-//           <div>Header bar navigation part</div>
-//         </Header>
-//       <Sidebar />
-//       <Layout>
-//         <Content
-//             style={{
-//               margin: '24px 16px 0',
-//             }}
-//           >
-//           <Tables/>  
-//           <UserInput/>
-//         </Content>
-        
-//       </Layout>
-//       <Footer
-//           style={{
-//             textAlign: 'center',
-//           }}
-//         >
-//           Ant Design ©{new Date().getFullYear()} Created by Ant UED
-//       </Footer>
-//     </Layout>
-    
-//     </>
-//   );
-// };
-// export default App;
