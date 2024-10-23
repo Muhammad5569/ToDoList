@@ -50,10 +50,11 @@ const Tables = () =>{
  const newTask = ()=>{
   try {
     createTask(Ntask).then(()=>{
-      getRace().then((val)=>{
-        setRace(val.data)
-        setinputValue('')
-      })
+      setRace([...race, Ntask])
+      // getRace().then((val)=>{
+      //   setRace(val.data)
+      //   setinputValue('')
+      // })
     })
     // document.querySelector("#newTaskInput").value= 'lol'
 
